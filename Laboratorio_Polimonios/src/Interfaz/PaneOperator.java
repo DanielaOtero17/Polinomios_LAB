@@ -9,7 +9,6 @@ import javax.swing.border.LineBorder;
 public class PaneOperator extends JPanel implements ActionListener{
 
 	private JButton insert;
-	
 	private Principal V;
 	
 	public PaneOperator (Principal v) {
@@ -20,20 +19,49 @@ public class PaneOperator extends JPanel implements ActionListener{
 		insert.setFont(new Font("Arial Rounded MT Bold", 15,15));
 		insert.setBackground(Color.WHITE);
 		
+		add(insert);
+		
+		
+		
 	//	insert.setBorder(BorderFactory.createLineBorder(Color.RED));
         insert.setBorder(new LineBorder(Color.RED));
 
-		setLayout(new BorderLayout());
+		
 		
 		insert.addActionListener(this);
 		insert.setActionCommand("insertar");
-		add(insert,BorderLayout.CENTER);
-		
 	}
 
+	
+	public JButton getInsert() {
+		return insert;
+	}
+
+
+	public void setInsert(JButton insert) {
+		this.insert = insert;
+	}
+
+
+	public Principal getV() {
+		return V;
+	}
+
+
+	public void setV(Principal v) {
+		V = v;
+	}
+
+
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent g) {
+	
+		String e = g.getActionCommand();
+		
+		if(e.equalsIgnoreCase("insertar")){
+			
+			V.getInformation();
+		}
 		
 	}
 	
