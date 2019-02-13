@@ -14,7 +14,7 @@ public class Graeffe {
     private static final double CERO=0.0001;
     private double[] moduloComplejas=new double[2];
 
-    public Graeffe(double[] coef) {
+    public Graeffe(int[] coef) {
     	raicesComplejas=new Complejo[4];
         n = coef.length-1;                        //grado del polinomio
         raicesReales=new double[n];             // un polinomio de grado n tiene como máximo n raíces reales.

@@ -1,9 +1,11 @@
 package Interfaz;
 
 import java.awt.*;
-import Model.*;
+import java.util.Random;
 
+import Model.*;
 import javax.swing.*;
+
 
 
 public class Principal extends JFrame {
@@ -12,8 +14,9 @@ public class Principal extends JFrame {
 	private ButtonsPane buttons;
 	private PaneOperator operator;
 	private Graeffe g;
-	private double[] coef;
+	private int [] coef;
 	private JTextArea zeros;
+	Random r = new Random();
 	
 	public Principal(){
 		
@@ -30,6 +33,8 @@ public class Principal extends JFrame {
 		setTitle("LABORATORIO ******* AED ****** POLINOMIOS ****** BIENVENIDO");
 		setLayout(new BorderLayout());
 		
+		operator.setPreferredSize(new Dimension(100,50));
+		
 		add(buttons,BorderLayout.SOUTH);
 		add(operator,BorderLayout.EAST);
 		add(zeros,BorderLayout.CENTER);
@@ -41,7 +46,59 @@ public class Principal extends JFrame {
 	public JTextArea getZeros() {
 		return zeros;
 	}
+	
 
+	public int[] getRandom() {
+	coef = new int [11];
+	String st = "";
+
+	for (int i = 0; i < coef.length; i++) {
+		
+		
+		coef[i] = r.nextInt(Integer.MAX_VALUE);
+		
+		
+		if(i==0){
+			if(coef[i]!=0){
+				st+= coef[i];
+			}
+			
+		}	
+		
+		else{
+			
+			
+			if(coef[i] > 0) {
+				
+				st+= " + ";
+			} 
+			
+			if(i==1) {
+				
+				st += coef[i]+"X";
+				
+			}else if(coef[i] == 0) {
+				
+				st += "";
+			}
+			else if(coef[i] == 1) {
+				
+				st+= " X^"+  i;
+			}else if(coef[i] == -1) {
+				st +="- X^"+i;
+			}else {
+				
+				st += coef[i]+"X^"+i;
+			}
+		
+		}
+		
+	}
+	
+	zeros.setText(st);
+		System.out.println(st);
+		return coef;
+	}
 
 	public void setZeros(JTextArea zeros) {
 		this.zeros = zeros;
@@ -49,9 +106,9 @@ public class Principal extends JFrame {
 	public void getInformation(){
 		
 		int n = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el grado del polinomio"));
-		coef = new double[n+1];
+		coef = new int [n+1];
 		g = new Graeffe(coef);
-		String cad = "";
+		String st = "";
 		int aux = n;
 		for(int i=0; i<=n; i++){
 			
@@ -59,31 +116,44 @@ public class Principal extends JFrame {
 			coef[i] = c;
 			
 			if(i==0){
-				if(c!=0){
-					cad+= c;
+				if(coef[i]!=0){
+					st+= coef[i];
 				}
-			}else if(i==1){
 				
-				if(c>0){
-					
-					cad+= " + ";
-				}
-				cad += c+"X";
-			}
+			}	
+			
 			else{
 				
-				if(c>0){
+				
+				if(coef[i] > 0) {
 					
-					cad+= "+";
+					st+= " + ";
+				} 
+				
+				if(i==1) {
+					
+					st += coef[i]+"X";
+					
+				}else if(coef[i] == 0) {
+					
+					st += "";
 				}
-				cad += c+"X^"+aux;
-				aux--;
+				else if(coef[i] == 1) {
+					
+					st+= " X^"+  i;
+				}else if(coef[i] == -1) {
+					st +="- X^"+i;
+				}else {
+					
+					st += coef[i]+"X^"+i;
+				}
+			
 			}
 			
 			
 		}
 		
-		zeros.setText(cad);
+		zeros.setText(st);
 
 		//operator.getZeros().setEditable(false);
 	}
@@ -94,6 +164,10 @@ public class Principal extends JFrame {
 		Principal main = new Principal();
 		main.setVisible(true);
 		
+	}
+	
+	public void cleanTextArea() {
+		zeros.setText("");
 	}
 
 }

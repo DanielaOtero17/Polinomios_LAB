@@ -8,6 +8,7 @@ public class ButtonsPane extends JPanel implements ActionListener {
 
 	private Principal V;
 	private JButton clean, calculate, random;
+	public final static  String CLEAN = "Limpiar";
 	
 	
 	public ButtonsPane(Principal v) {
@@ -46,10 +47,20 @@ public class ButtonsPane extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		String g = e.getActionCommand();
+		if(g.equals(CLEAN)) {
+			V.cleanTextArea();
+			System.out.println("hola");
 			
+		}else if(g.equals("Aleatorio")) {
+			
+			V.getRandom();
+			
+		}
 			
 		
 	}
+	
+	
+	
 }
