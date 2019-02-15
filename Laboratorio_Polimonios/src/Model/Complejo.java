@@ -1,5 +1,9 @@
 package Model;
 
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
 public class Complejo {
 	
 	 private double real;
@@ -22,38 +26,38 @@ public class Complejo {
   public double modulo(){
      return Math.sqrt(real*real+imag*imag);
   }
-//devuelve el ángulo en grados
+//devuelve el Angulo en grados
   public double argumento(){
-     double angulo=Math.atan2(imag, real);     //devuelve el ángulo entre -PI y +PI
+     double angulo=Math.atan2(imag, real);     //devuelve el Angulo entre -PI y +PI
      if(angulo<0)  angulo=2*Math.PI+angulo;
      return angulo*180/Math.PI;
   }
-//suma de dos números complejos
+//suma de dos nï¿½meros complejos
   public static Complejo suma(Complejo c1, Complejo c2){
      double x=c1.real+c2.real;
      double y=c1.imag+c2.imag;
      return new Complejo(x, y);
   }
-//producto de dos números complejos
+//producto de dos nï¿½meros complejos
  public static Complejo producto(Complejo c1, Complejo c2){
      double x=c1.real*c2.real-c1.imag*c2.imag;
      double y=c1.real*c2.imag+c1.imag*c2.real;
      return new Complejo(x, y);
   }
-//producto de un complejo por un número real
+//producto de un complejo por un nï¿½mero real
   public static Complejo producto(Complejo c, double d){
      double x=c.real*d;
      double y=c.imag*d;
      return new Complejo(x, y);
  }
-//producto de un número real  por un complejo
+//producto de un nï¿½mero real  por un complejo
   public static Complejo producto(double d, Complejo c){
      double x=c.real*d;
      double y=c.imag*d;
      return new Complejo(x, y);
  }
-//cociente de dos números complejos
-//excepción cuando el complejo denominador es cero
+//cociente de dos nï¿½meros complejos
+//excepciï¿½n cuando el complejo denominador es cero
   public static Complejo cociente(Complejo c1, Complejo c2)throws ExcepcionDivideCero{
      double aux, x, y;
      if(c2.modulo()==0.0){
@@ -65,7 +69,7 @@ public class Complejo {
      }
      return new Complejo(x, y);
   }
-//cociente entre un número complejo y un número real
+//cociente entre un nï¿½mero complejo y un nï¿½mero real
   public static Complejo cociente(Complejo c, double d)throws ExcepcionDivideCero{
     double x, y;
     if(d==0.0){
@@ -76,18 +80,18 @@ public class Complejo {
     }
      return new Complejo(x, y);
   }
-//el número e elevado a un número complejo
+//el nï¿½mero e elevado a un nï¿½mero complejo
   public static Complejo exponencial(Complejo c){
      double x=Math.cos(c.imag)*Math.exp(c.real);
      double y=Math.sin(c.imag)*Math.exp(c.real);
      return new Complejo(x, y);
   }
-//raíz cuadrada de un número positivo o negativo
+//raï¿½z cuadrada de un nï¿½mero positivo o negativo
   public static Complejo csqrt(double d){
      if(d>=0) return new Complejo(Math.sqrt(d), 0);
      return new Complejo(0, Math.sqrt(-d));
   }
-//función auxiliar  para la potencia de un número complejo
+//funciï¿½n auxiliar  para la potencia de un nï¿½mero complejo
   private static double potencia(double base, int exponente){
     double resultado=1.0;
     for(int i=0; i<exponente; i++){
@@ -95,7 +99,7 @@ public class Complejo {
     }
     return resultado;
   }
-//función auxiliar para la potencia de un número complejo
+//funciï¿½n auxiliar para la potencia de un nï¿½mero complejo
   private static double combinatorio(int m, int n){
     long num=1;
     long den=1;
@@ -107,21 +111,31 @@ public class Complejo {
     }
     return (double)num/den;
   }
-//potencia de un número complejo
-  public static Complejo potencia(Complejo c, int exponente){
+//potencia de un nï¿½mero complejo
+  public static Complejo potencia(Complejo c, int exponente) throws IOException{
     double x=0.0, y=0.0;
     int signo;
-    for(int i=0; i<=exponente; i++){
-        signo=(i%2==0)?+1:-1;
-//parte real
-        x+=combinatorio(exponente, 2*i)*potencia(c.real, exponente-2*i)*potencia(c.imag, 2*i)*signo;
-        if(exponente==2*i)  break;
-//parte imaginaria
-        y+=combinatorio(exponente, 2*i+1)*potencia(c.real, exponente-(2*i+1))*potencia(c.imag, 2*i+1)*signo;
-    }
+    try {
+    	for(int i=0; i<=exponente; i++){
+            signo=(i%2==0)?+1:-1;
+    //parte real
+            x+=combinatorio(exponente, 2*i)*potencia(c.real, exponente-2*i)*potencia(c.imag, 2*i)*signo;
+            if(exponente==2*i)  break;
+    //parte imaginaria
+            y+=combinatorio(exponente, 2*i+1)*potencia(c.real, exponente-(2*i+1))*potencia(c.imag, 2*i+1)*signo;
+        }
+       
+        
+	} catch (Exception e) {
+		
+		JOptionPane.showMessageDialog(null,"No se ha podido calcular las raices complejas", "ERROR", 2);
+	}
+    
     return new Complejo(x, y);
+    
+    
   }
-//traduce un número complejo a un string
+//traduce un nï¿½mero complejo a un string
   public String toString(){
      if(imag>0)     return new String((double)Math.round(100*real)/100+" + "+(double)Math.round(100*imag)/100+"*i");
      return new String((double)Math.round(100*real)/100+" - "+(double)Math.round(-100*imag)/100+"*i");

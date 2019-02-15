@@ -2,7 +2,8 @@ package Interfaz;
 
  import javax.swing.*;
  import java.awt.event.*;
- import java.awt.*;
+import java.io.IOException;
+import java.awt.*;
 
 public class ButtonsPane extends JPanel implements ActionListener {
 
@@ -58,7 +59,12 @@ public class ButtonsPane extends JPanel implements ActionListener {
 			
 		}else if(g.equals("Calcular")) {
 			
-			V.calculate();
+			try {
+				V.calculate();
+			} catch (HeadlessException | IOException e1) {
+				
+				e1.printStackTrace();
+			}
 		}
 			
 		

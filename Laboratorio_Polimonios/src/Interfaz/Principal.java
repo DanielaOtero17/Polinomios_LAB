@@ -1,6 +1,7 @@
 package Interfaz;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Random;
 
 import Model.*;
@@ -20,7 +21,7 @@ public class Principal extends JFrame {
 	
 	public Principal(){
 		
-		zeros = new JTextArea("Ceros Polinómicos");
+		zeros = new JTextArea("Ceros Polinï¿½micos");
 		zeros.setForeground(Color.black);
 		zeros.setFocusable(false);
 		
@@ -47,63 +48,81 @@ public class Principal extends JFrame {
 		return zeros;
 	}
 	
-	public void calculate() {
-		
-		String n = "Los ceros son:  ";
+	public void calculate() throws HeadlessException, IOException {
 		
 		Graeffe graeffe = new Graeffe(coef); 
-		
-		graeffe.mostrarRaices();
-		
-		
-		
-		JOptionPane.showMessageDialog(null, n, "Ceros", 1);
+		 graeffe.mostrarRaices();
+		 
+		if(graeffe.getReals().equalsIgnoreCase("Raices reales: \n")) {
+			 
+			 JOptionPane.showMessageDialog(null, "El polinomio no tiene soluciones reales \n","Ceros", 1);
+		 }else {
+			 
+			 JOptionPane.showMessageDialog(null, graeffe.getReals(),"Ceros", 1);
+		 }
+		 
+		 if(graeffe.getComplexes().equalsIgnoreCase("Raices complejas: \n")) {
+			 
+			 JOptionPane.showMessageDialog(null, "El polinomio no tiene soluciones complejas \n","Ceros", 1);
+		 }else {
+			 
+			 JOptionPane.showMessageDialog(null, graeffe.getComplexes(),"Ceros", 1);
+		 }
+
 	}
 
 	public int[] getRandom() {
 	coef = new int [11];
 	String st = "";
-
+	int aux = coef.length-1;
 	for (int i = 0; i < coef.length; i++) {
 		
 		
-		coef[i] = r.nextInt(Integer.MAX_VALUE);
+		coef[i] = r.nextInt(9999);
 		
 		
-		if(i==0){
-			if(coef[i]!=0){
-				st+= coef[i];
-			}
-			
-		}	
-		
-		else{
-			
-			
-			if(coef[i] > 0) {
-				
-				st+= " + ";
-			} 
-			
-			if(i==1) {
-				
-				st += coef[i]+"X";
-				
-			}else if(coef[i] == 0) {
-				
+		if (aux > 1) {
+
+			if (coef[i] == 1) {
+
+				st += "X^" + aux;
+			} else if (coef[i] == 0) {
+
 				st += "";
+			} else {
+
+				st += coef[i] + "X^" + aux;
 			}
-			else if(coef[i] == 1) {
-				
-				st+= " X^"+  i;
-			}else if(coef[i] == -1) {
-				st +="- X^"+i;
+		} else if (aux == 1) {
+
+			if (coef[i] == 1) {
+
+				st += "X^" + aux;
+			} else if (coef[i] == 0) {
+
+				st += "";
+			} else {
+				st += coef[i] + "X";
+			}
+
+		} else {
+
+			if (coef[i] == 0) {
+
+				st += "";
 			}else {
 				
-				st += coef[i]+"X^"+i;
+				st += coef[i];
 			}
-		
 		}
+		
+
+		if (coef[i] > 0 && aux > 0) {
+
+			st += " + ";
+		}
+		aux--;
+	
 		
 	}
 	
@@ -115,59 +134,70 @@ public class Principal extends JFrame {
 	public void setZeros(JTextArea zeros) {
 		this.zeros = zeros;
 	}
-	public void getInformation(){
-		
+
+	public void getInformation() {
+
 		int n = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el grado del polinomio"));
-		coef = new int [n+1];
+		coef = new int[n + 1];
 		g = new Graeffe(coef);
 		String st = "";
 		int aux = n;
-		for(int i=0; i<=n; i++){
-			
-			int c = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el coeficiente de grado "+ i));
+		for (int i = 0; i <= n; i++) {
+
+			int c = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el coeficiente de grado " + aux));
 			coef[i] = c;
+
+			if(coef[i] > 0 && aux < n) {
+				
+				st += " + ";
+			}
 			
-			if(i==0){
-				if(coef[i]!=0){
-					st+= coef[i];
-				}
-				
-			}	
-			
-			else{
-				
-				
-				if(coef[i] > 0) {
-					
-					st+= " + ";
-				} 
-				
-				if(i==1) {
-					
-					st += coef[i]+"X";
-					
-				}else if(coef[i] == 0) {
-					
+			if (aux > 1) {
+
+				if (coef[i] == 1) {
+
+					st += "X^" + aux;
+				} else if (coef[i] == 0) {
+
 					st += "";
+				} else {
+
+					st += coef[i] + "X^" + aux;
 				}
-				else if(coef[i] == 1) {
-					
-					st+= " X^"+  i;
-				}else if(coef[i] == -1) {
-					st +="- X^"+i;
+			} else if (aux == 1) {
+
+				if (coef[i] == 1) {
+
+					st += "X";
+				} else if (coef[i] == 0) {
+
+					st += "";
+				} else {
+					st += coef[i] + "X";
+				}
+
+			} else {
+
+				if (coef[i] == 0) {
+
+					st += "";
 				}else {
 					
-					st += coef[i]+"X^"+i;
+					st += coef[i];
 				}
-			
 			}
 			
 			
+
+			
+			aux--;
+			
+			
+
 		}
 		
+		st += " = 0";
 		zeros.setText(st);
-
-		//operator.getZeros().setEditable(false);
 	}
 	
 	
