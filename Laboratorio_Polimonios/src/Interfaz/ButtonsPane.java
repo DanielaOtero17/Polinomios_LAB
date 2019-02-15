@@ -56,6 +56,9 @@ public class ButtonsPane extends JPanel implements ActionListener {
 			
 			V.getRandom();
 			
+		}else if(g.equals("Calcular")) {
+			
+			V.calculate();
 		}
 			
 		

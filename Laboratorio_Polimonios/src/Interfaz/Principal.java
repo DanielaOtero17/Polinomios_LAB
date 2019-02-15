@@ -47,6 +47,12 @@ public class Principal extends JFrame {
 		return zeros;
 	}
 	
+	public void calculate() {
+		
+		String n = "Los ceros son:  ";
+		
+		JOptionPane.showMessageDialog(null, n, "Ceros", 1);
+	}
 
 	public int[] getRandom() {
 	coef = new int [11];
