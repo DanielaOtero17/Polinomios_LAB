@@ -51,6 +51,12 @@ public class Principal extends JFrame {
 		
 		String n = "Los ceros son:  ";
 		
+		Graeffe graeffe = new Graeffe(coef); 
+		
+		graeffe.mostrarRaices();
+		
+		
+		
 		JOptionPane.showMessageDialog(null, n, "Ceros", 1);
 	}
 
