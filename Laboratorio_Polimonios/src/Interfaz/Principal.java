@@ -85,7 +85,7 @@ public class Principal extends JFrame {
 		
 		for (int i = 0; i < coef.length; i++) {
 
-			coef[i] = r.nextInt(100);
+			coef[i] = r.nextInt(9999);
 
 			if (coef[i] > 0 && aux < coef.length-1) {
 
