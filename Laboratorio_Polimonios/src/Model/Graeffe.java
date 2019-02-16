@@ -234,7 +234,8 @@ exterior:
     	return complexes;
     }
 
-    public void mostrarRaices() throws IOException{
+    public void mostrarRaices() throws IOException,ArrayIndexOutOfBoundsException{
+    	
     	
         hallarRaices();
         

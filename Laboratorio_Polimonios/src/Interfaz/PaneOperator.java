@@ -2,6 +2,7 @@ package Interfaz;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -60,7 +61,12 @@ public class PaneOperator extends JPanel implements ActionListener{
 		
 		if(e.equalsIgnoreCase("insertar")){
 			
-			V.getInformation();
+			try {
+				V.getInformation();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}
