@@ -248,6 +248,12 @@ exterior:
             reals += (double)Math.round(raicesReales[i]*100)/100+" ---> "+ "Valor polinomio: " + valorPolinomio(raicesReales[i]) + "\n";
      
         }
+        
+        
+        
+        
+        
+        
  
         System.out.println("");
 //raices complejas
