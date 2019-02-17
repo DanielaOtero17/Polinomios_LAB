@@ -211,6 +211,7 @@ exterior:
     		                continue;
     		            }
     		        }
+    		        
     		        if(numComplejas==1){
     		            unaRaizCompleja();
     		        }
